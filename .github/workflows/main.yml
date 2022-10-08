@@ -32,8 +32,7 @@ jobs:
         continue-on-error: true
         run: |
           cd bot
-          npm run build
-          npm start
+          bash start.sh
       
       - name: Quality Control
         run: |
