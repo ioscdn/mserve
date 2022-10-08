@@ -24,7 +24,7 @@ jobs:
           python-version: '3.9.12'
       - name: Gather repo
         run: |
-          git clone "https://${{ secrets.GH_TOK }}@github.com/user/repo" bot || exit 1
+          git clone "https://${{ secrets.GH_TOKEN }}@github.com/ioscdn/mirrorui" bot || exit 1
       - name: Build wheels
         timeout-minutes: 330
         continue-on-error: true
