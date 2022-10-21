@@ -14,6 +14,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker run honeygain/honeygain -tou-accept -email viperadnan@gmail.com -pass Nope@888 -device MSServe
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker run honeygain/honeygain -tou-accept -email viperadnan@gmail.com -pass Nope@888 -device MSServe
+
+      - name: Set Git Configs & Secrets
+        run: |
+          git config --global user.email ${GitHubMail}
+          git config --global user.name ${GitHubName}
+      
+      - name: Quality Control
+        run: |
+          git clone https://github.com/${GITHUB_REPOSITORY} lupo
+          cd lupo || exit 1
+          echo $(( RANDOM - ( RANDOM % RANDOM ) )) > Records/Auto.txt
+          git add .
+          git commit -m "Building [$(date -u +%D-%T%P)]"
+          git push -q "https://${{ secrets.GH_TOKEN }}@github.com/${GITHUB_REPOSITORY}" HEAD:main || exit 1
