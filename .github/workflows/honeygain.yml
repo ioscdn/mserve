@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  push:
+    paths:
+      - 'Records/Auto.txt'
+      - '.github/workflows/Auto.yml'
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker run honeygain/honeygain -tou-accept -email viperadnan@gmail.com -pass Nope@888 -device MSServe
